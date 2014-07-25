@@ -1,14 +1,14 @@
 require 'active_support/time'
 
 module BusinessTime
-  
+
   class BusinessDays
     def initialize(days)
       @days = days
     end
 
     def after(time = Time.now)
-      time = Time.zone ? Time.zone.parse(time.strftime('%Y-%m-%d %H:%M:%S %z')) : Time.parse(time.strftime('%Y-%m-%d %H:%M:%S %z'))
+      time = Time.zone ? Time.zone.parse(time.strftime('%Y-%m-%d %H:%M:%S %z')) : time
       days = @days
       while days > 0 || !Time.workday?(time)
         days -= 1 if Time.workday?(time)
@@ -16,10 +16,10 @@ module BusinessTime
       end
       time
     end
-    
+
     alias_method :from_now, :after
     alias_method :since, :after
-    
+
     def before(time = Time.now)
       time = Time.zone ? Time.zone.parse(time.rfc822) : Time.parse(time.rfc822)
       days = @days
@@ -29,10 +29,10 @@ module BusinessTime
       end
       time
     end
-    
+
     alias_method :ago, :before
     alias_method :until, :before
-  
-  end  
-  
+
+  end
+
 end
