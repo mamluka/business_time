@@ -21,7 +21,7 @@ module BusinessTime
     alias_method :since, :after
 
     def before(time = Time.now)
-      time = Time.zone ? Time.zone.parse(time.rfc822) : Time.parse(time.rfc822)
+      time = Time.zone ? Time.zone.parse(time.strftime('%Y-%m-%d %H:%M:%S %z')) : time
       days = @days
       while days > 0 || !Time.workday?(time)
         days -= 1 if Time.workday?(time)
